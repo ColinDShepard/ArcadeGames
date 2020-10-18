@@ -1,5 +1,6 @@
 package sample;
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -16,6 +17,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+    private Snake snakeGame = new Snake();
 
     private Stage window;
 
@@ -43,6 +46,17 @@ public class Main extends Application {
         //-------BUTTON ACTIONS--------------------------------------------------
         quit.setOnAction(e ->{
             System.exit(0);
+
+        });
+
+        snake.setOnAction(e -> {
+
+            try {
+                snakeGame.start(window);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
 
         });
 
