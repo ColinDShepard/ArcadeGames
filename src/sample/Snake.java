@@ -59,7 +59,7 @@ public class Snake extends Application {
         food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
         food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 
-        KeyFrame frames = new KeyFrame(Duration.seconds(0.16), e ->{
+        KeyFrame frames = new KeyFrame(Duration.seconds(0.08), e ->{
             if(!running) {
                 return;
 
@@ -136,11 +136,7 @@ public class Snake extends Application {
 
 
             }
-            FINAL_SCORE_DISPLAY.setText("Highscore: " + finalscore);
-            FINAL_SCORE_DISPLAY.setTranslateX(650);
-            FINAL_SCORE_DISPLAY.setTranslateY(22);
-            FINAL_SCORE_DISPLAY.setFill(Color.GREEN);
-            FINAL_SCORE_DISPLAY.setFont(Font.font("Arial", 20));
+
 
 
 
@@ -158,9 +154,11 @@ public class Snake extends Application {
 
     private void restartGame() {
         stopGame();
-        window.close();
-        startGame();
+        finalScore(score);
+        EndScreen end = new EndScreen();
+        end.display(getFS());
 
+        window.close();
     }
 
     private void startGame() {
@@ -177,7 +175,20 @@ public class Snake extends Application {
         running = false;
         timeline.stop();
         snake.clear();
+
     }
+
+    private void finalScore(int score) {
+        if (score > finalscore) {
+            finalscore = score;
+        }
+
+    }
+
+    private int getFS() {
+        return finalscore;
+    }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
