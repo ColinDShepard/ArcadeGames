@@ -34,7 +34,7 @@ public class EndScreen {
 
         Button quit = new Button("Quit");
         Button main = new Button("Main Menu");
-        Button playAgain = new Button("Try again");
+
 
         main.setOnAction(e -> {
             window.close();
@@ -56,20 +56,10 @@ public class EndScreen {
 
         });
 
-        playAgain.setOnAction(e -> {
-            window.close();
-            Snake snake = new Snake();
-            try {
-                snake.start(window);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
 
 
-        });
 
-
-        buttons.getChildren().addAll(main, playAgain, quit);
+        buttons.getChildren().addAll(main, quit);
         buttons.setAlignment(Pos.CENTER);
 
 

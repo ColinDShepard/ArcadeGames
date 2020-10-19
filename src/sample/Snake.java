@@ -40,13 +40,18 @@ public class Snake extends Application {
     private Text FINAL_SCORE_DISPLAY = new Text();
     private int score = 0;
     private int finalscore = 0;
+    private double difficulty;
 
     BorderPane snakeLayout = new BorderPane();
 
     //ObservableList uses listeners to track changes when they occur
     private ObservableList<Node> snake;
 
-    private Parent createContent() {
+    public void changeDiff(double x) {
+        this.difficulty = x;
+    }
+
+    private Parent createContent(double x) {
         Pane root = new Pane();
         root.setPrefSize(APP_W, APP_H);
 
@@ -59,7 +64,7 @@ public class Snake extends Application {
         food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
         food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 
-        KeyFrame frames = new KeyFrame(Duration.seconds(0.08), e ->{
+        KeyFrame frames = new KeyFrame(Duration.seconds(x), e ->{
             if(!running) {
                 return;
 
@@ -192,7 +197,7 @@ public class Snake extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(createContent());
+        Scene scene = new Scene(createContent(difficulty));
         scene.setOnKeyPressed(e -> {
             if(moved) {
                 switch (e.getCode()) {

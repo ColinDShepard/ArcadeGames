@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -29,12 +30,17 @@ public class Main extends Application {
     private final VBox gameList = new VBox(10);
     private final HBox title = new HBox();
 
+    private double diff = 0;
+
     Text mainTitle = new Text();
 
     //Creating buttons
     Button quit = new Button("Quit");
     Button snake = new Button("Snake");
     Button pong = new Button("Pong");
+    ChoiceBox<String> chooseDiff = new ChoiceBox<>();
+
+
 
 
     @Override
@@ -50,6 +56,8 @@ public class Main extends Application {
         });
 
         snake.setOnAction(e -> {
+            getChoice(chooseDiff);
+            snakeGame.changeDiff(getDiff());
 
             try {
                 snakeGame.start(window);
@@ -59,6 +67,9 @@ public class Main extends Application {
 
 
         });
+
+
+
 
 
 
@@ -94,8 +105,35 @@ public class Main extends Application {
     }
 
     private void setGameList() {
+
+        chooseDiff.getItems().addAll("Easy", "Medium", "Hard");
+        chooseDiff.setValue("Easy");
         gameList.setAlignment(Pos.BASELINE_CENTER);
-        gameList.getChildren().addAll(snake, pong, quit);
+        gameList.getChildren().addAll(chooseDiff, snake, pong, quit);
+    }
+
+    private void getChoice(ChoiceBox<String> chooseDiff) {
+        String diff = chooseDiff.getValue();
+
+            switch(diff) {
+                case "Easy": setDiff(0.16);
+                    break;
+                case "Medium": setDiff(0.08);
+                    break;
+                case "Hard": setDiff(0.04);
+                    break;
+
+            }
+
+
+    }
+
+    private void setDiff(double diff) {
+        this.diff = diff;
+    }
+
+    private double getDiff() {
+        return diff;
     }
 
 
