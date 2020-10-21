@@ -17,6 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.*;
+
 public class Main extends Application {
 
     private Snake snakeGame = new Snake();
@@ -32,19 +34,30 @@ public class Main extends Application {
 
     private double diff = 0;
 
+    private int snakeScore = 0;
+
     Text mainTitle = new Text();
 
     //Creating buttons
     Button quit = new Button("Quit");
-    Button snake = new Button("Snake");
+    Button snake = new Button("Snake:");
     Button pong = new Button("Pong");
     ChoiceBox<String> chooseDiff = new ChoiceBox<>();
 
+
+    Score snakeScore2 = null;
 
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        Deserialization();
+
+
+
+
+
 
         setTitle();
         setGameList();
@@ -135,6 +148,89 @@ public class Main extends Application {
     private double getDiff() {
         return diff;
     }
+
+    public void setSnakeScore(int score) {
+
+        if(score > snakeScore) {
+            snakeScore = score;
+            snake.setText("Snake: " + snakeScore);
+
+        }
+
+
+    }
+
+
+
+
+
+    public void Serilization(Score s, String filename) {
+        try {
+
+            FileOutputStream file  = new FileOutputStream(filename);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            out.writeObject(s);
+
+            out.close();
+            file.close();
+            System.out.println("Object has been saved");
+
+        }
+        catch(Exception e) {
+            System.out.println("Error" + e);
+        }
+
+
+
+    }
+
+
+    public void Deserialization() {
+        try {
+            FileInputStream file = new FileInputStream("score.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+            snakeScore2 = (Score)in.readObject();
+
+            in.close();
+            file.close();
+
+            snake.setText("Snake Highscore: " + snakeScore2.getSnakeScore());
+
+
+        }
+        catch(Exception e) {
+            System.out.println("Error" + e);
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

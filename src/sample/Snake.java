@@ -157,6 +157,10 @@ public class Snake extends Application {
         return root;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     private void restartGame() {
         stopGame();
         finalScore(score);

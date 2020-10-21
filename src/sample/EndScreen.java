@@ -12,6 +12,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
 public class EndScreen {
 
     public static void display(int finalscore) {
@@ -39,6 +40,11 @@ public class EndScreen {
         main.setOnAction(e -> {
             window.close();
             Main gotoMain = new Main();
+            Score snakeScore1 = new Score(finalscore);
+            gotoMain.Serilization(snakeScore1, "score.ser");
+
+
+
 
             try {
                 gotoMain.start(window);
