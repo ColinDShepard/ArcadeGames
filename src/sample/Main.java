@@ -36,6 +36,8 @@ public class Main extends Application {
 
     private int snakeScore = 0;
 
+    private int serialScore = 0;
+
     Text mainTitle = new Text();
 
     //Creating buttons
@@ -196,6 +198,7 @@ public class Main extends Application {
             file.close();
 
             snake.setText("Snake Highscore: " + snakeScore2.getSnakeScore());
+            serialScore = snakeScore2.getSnakeScore();
 
 
         }
@@ -206,21 +209,10 @@ public class Main extends Application {
 
     }
 
+    public int getSerialScore() {
+        return serialScore;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 

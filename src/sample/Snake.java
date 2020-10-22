@@ -34,12 +34,10 @@ public class Snake extends Application {
     private boolean moved = false;
     private boolean running = false;
 
-    private Timeline timeline = new Timeline();
+    private final Timeline timeline = new Timeline();
 
-    private Text SCORE_DISPLAY = new Text();
-    private Text FINAL_SCORE_DISPLAY = new Text();
+    private final Text SCORE_DISPLAY = new Text();
     private int score = 0;
-    private int finalscore = 0;
     private double difficulty;
 
     BorderPane snakeLayout = new BorderPane();
@@ -115,6 +113,7 @@ public class Snake extends Application {
 
             }
 
+            //Collision detection when snake eats food
             if(tail.getTranslateX() == food.getTranslateX() && tail.getTranslateY() == food.getTranslateY()) {
 
                 //This can be method that scrambles where food is
@@ -123,14 +122,16 @@ public class Snake extends Application {
 
 
                 //this can also be a method called eatsfood()
+                //This adds creates block and adds it to snake
                 Rectangle rect = new Rectangle(BLOCK_SIZE, BLOCK_SIZE);
                 rect.setFill(Color.BLUE);
                 rect.setTranslateX(tailX);
                 rect.setTranslateY(tailY);
-
                 snake.add(rect);
-                score = snake.size() - 1;
 
+
+                //Creates score and changes depending on size of snake
+                score = snake.size() - 1;
                 SCORE_DISPLAY.setText("Score: " + score);
                 SCORE_DISPLAY.setTranslateX(10);
                 SCORE_DISPLAY.setTranslateY(22);
@@ -151,7 +152,7 @@ public class Snake extends Application {
         timeline.getKeyFrames().add(frames);
         timeline.setCycleCount(Timeline.INDEFINITE);
 
-        root.getChildren().addAll(food, snakeBody, SCORE_DISPLAY, FINAL_SCORE_DISPLAY);
+        root.getChildren().addAll(food, snakeBody, SCORE_DISPLAY);
 
 
         return root;
@@ -163,11 +164,10 @@ public class Snake extends Application {
 
     private void restartGame() {
         stopGame();
-        finalScore(score);
         EndScreen end = new EndScreen();
-        end.display(getFS());
-
         window.close();
+        end.display(getScore());
+
     }
 
     private void startGame() {
@@ -187,16 +187,9 @@ public class Snake extends Application {
 
     }
 
-    private void finalScore(int score) {
-        if (score > finalscore) {
-            finalscore = score;
-        }
 
-    }
 
-    private int getFS() {
-        return finalscore;
-    }
+
 
 
     @Override

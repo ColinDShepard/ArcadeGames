@@ -40,8 +40,13 @@ public class EndScreen {
         main.setOnAction(e -> {
             window.close();
             Main gotoMain = new Main();
-            Score snakeScore1 = new Score(finalscore);
-            gotoMain.Serilization(snakeScore1, "score.ser");
+            gotoMain.Deserialization();
+            if(finalscore > gotoMain.getSerialScore() ) {
+                Score snakeScore1 = new Score(finalscore);
+                gotoMain.Serilization(snakeScore1, "score.ser");
+
+            }
+
 
 
 
