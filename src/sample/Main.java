@@ -74,11 +74,13 @@ public class Main extends Application {
             getChoice(chooseDiff);
             snakeGame.changeDiff(getDiff());
 
+
             try {
                 snakeGame.start(window);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
+
 
 
         });
@@ -166,7 +168,7 @@ public class Main extends Application {
 
 
 
-    public void Serilization(Score s, String filename) {
+    public void Serialization(Score s, String filename) {
         try {
 
             FileOutputStream file  = new FileOutputStream(filename);

@@ -49,7 +49,11 @@ public class Snake extends Application {
         this.difficulty = x;
     }
 
-    private Parent createContent(double x) {
+    public double getDifficulty() {
+        return difficulty;
+    }
+
+    private Parent createContent(double diff) {
         Pane root = new Pane();
         root.setPrefSize(APP_W, APP_H);
 
@@ -62,8 +66,8 @@ public class Snake extends Application {
         food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
         food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 
-        KeyFrame frames = new KeyFrame(Duration.seconds(x), e ->{
-            if(!running) {
+        KeyFrame frames = new KeyFrame(Duration.seconds(diff), e -> {
+            if (!running) {
                 return;
 
             }
@@ -74,7 +78,7 @@ public class Snake extends Application {
             double tailX = tail.getTranslateX();
             double tailY = tail.getTranslateY();
 
-            switch(direction) {
+            switch (direction) {
                 case UP:
                     tail.setTranslateX(snake.get(0).getTranslateX());
                     tail.setTranslateY(snake.get(0).getTranslateY() - BLOCK_SIZE);
@@ -95,12 +99,12 @@ public class Snake extends Application {
 
             moved = true;
 
-            if(toRemove) {
+            if (toRemove) {
                 snake.add(0, tail);
             }
 
             //Collision detection on if the snake hits itself
-            for(Node rect : snake) {
+            for (Node rect : snake) {
                 if (rect != tail && tail.getTranslateX() == rect.getTranslateX() && tail.getTranslateY() == rect.getTranslateY()) {
                     restartGame();
                     break;
@@ -108,13 +112,13 @@ public class Snake extends Application {
 
             }
             //Collision detection on if the snake hits the wall
-            if(tail.getTranslateX() < 0 || tail.getTranslateX() >= APP_W || tail.getTranslateY() < 0 || tail.getTranslateY() >= APP_H) {
+            if (tail.getTranslateX() < 0 || tail.getTranslateX() >= APP_W || tail.getTranslateY() < 0 || tail.getTranslateY() >= APP_H) {
                 restartGame();
 
             }
 
             //Collision detection when snake eats food
-            if(tail.getTranslateX() == food.getTranslateX() && tail.getTranslateY() == food.getTranslateY()) {
+            if (tail.getTranslateX() == food.getTranslateX() && tail.getTranslateY() == food.getTranslateY()) {
 
                 //This can be method that scrambles where food is
                 food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
@@ -131,7 +135,9 @@ public class Snake extends Application {
 
 
                 //Creates score and changes depending on size of snake
-                score = snake.size() - 1;
+                //score = snake.size() - 1;
+                changeScore(diff);
+
                 SCORE_DISPLAY.setText("Score: " + score);
                 SCORE_DISPLAY.setTranslateX(10);
                 SCORE_DISPLAY.setTranslateY(22);
@@ -139,12 +145,7 @@ public class Snake extends Application {
                 SCORE_DISPLAY.setFont(Font.font("Arial", 20));
 
 
-
-
             }
-
-
-
 
 
         });
@@ -187,16 +188,24 @@ public class Snake extends Application {
 
     }
 
+    public void changeScore(double diff) {
+        if(diff == 0.16) {
+            score = snake.size() - 1;
 
+        }else if(diff == 0.08) {
+            score = (snake.size() - 1) * 5;
 
+        }else if(diff == 0.04) {
+            score = (snake.size() - 1) * 25;
+        }
 
-
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(createContent(difficulty));
         scene.setOnKeyPressed(e -> {
-            if(moved) {
+            if (moved) {
                 switch (e.getCode()) {
                     case W:
                         if (direction != UserAction.DOWN) {
@@ -235,8 +244,6 @@ public class Snake extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-
 
 
 }
