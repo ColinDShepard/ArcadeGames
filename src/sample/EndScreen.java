@@ -41,14 +41,11 @@ public class EndScreen {
             window.close();
             Main gotoMain = new Main();
             gotoMain.Deserialization();
-            if(finalscore > gotoMain.getSerialScore() ) {
+            if (finalscore > gotoMain.getSerialScore()) {
                 Score snakeScore1 = new Score(finalscore);
                 gotoMain.Serialization(snakeScore1, "score.ser");
 
             }
-
-
-
 
 
             try {
@@ -68,8 +65,6 @@ public class EndScreen {
         });
 
 
-
-
         buttons.getChildren().addAll(main, quit);
         buttons.setAlignment(Pos.CENTER);
 
@@ -80,7 +75,6 @@ public class EndScreen {
         Scene scene = new Scene(column, 400, 400);
         window.setScene(scene);
         window.show();
-
 
 
     }

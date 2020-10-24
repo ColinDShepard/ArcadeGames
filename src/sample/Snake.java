@@ -189,13 +189,13 @@ public class Snake extends Application {
     }
 
     public void changeScore(double diff) {
-        if(diff == 0.16) {
+        if (diff == 0.16) {
             score = snake.size() - 1;
 
-        }else if(diff == 0.08) {
+        } else if (diff == 0.08) {
             score = (snake.size() - 1) * 5;
 
-        }else if(diff == 0.04) {
+        } else if (diff == 0.04) {
             score = (snake.size() - 1) * 25;
         }
 

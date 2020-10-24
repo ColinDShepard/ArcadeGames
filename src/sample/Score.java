@@ -6,7 +6,7 @@ public class Score implements Serializable {
     private int snakeScore = 0;
 
 
-    public Score (int score) {
+    public Score(int score) {
         this.snakeScore = score;
     }
 
